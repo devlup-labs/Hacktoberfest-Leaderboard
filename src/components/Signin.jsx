@@ -3,17 +3,17 @@ import { useSignIn } from '../hooks/useSignIn'
 import Leaderboard from './Leaderboard'
 
 const Signin = () => {
-    const { login, isPending, logined, userIn } = useSignIn()
+    const { login, isPending, logined, username } = useSignIn()
     return (
         <div>
             {logined ? (
                 <div>
                     <Leaderboard status={logined} >
-                        {userIn.displayName}
+                        {username}
                     </Leaderboard>
                 </div>
             ) : <div>
-                <button onClick={login} className=''>
+                <button className="bg-blue-600 text-white hover:text-blue-600 hover:bg-white mx-auto text-cneter mt-[100px] flex justify-center items-center p-4 border border-black rounded-md" onClick={login} >
                     {isPending ? "Loading....." : "Login With Git hub"}
                 </button>
             </div>}

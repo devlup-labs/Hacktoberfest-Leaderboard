@@ -8,10 +8,13 @@ const Signout = () => {
         <div>
             {out === true ? (
                 <>
+                    <p>
+                        Reload.
+                    </p>
                     <Signin />
                 </>
             ) : (
-                <button onClick={logout}>
+                <button className="bg-blue-600 text-white hover:text-blue-600 hover:bg-white mx-auto text-cneter mt-[100px] flex justify-center items-center p-4 border border-black rounded-md" onClick={logout}>
                     Sign out
                 </button>
             )}

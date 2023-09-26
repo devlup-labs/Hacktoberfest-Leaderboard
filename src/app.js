@@ -1,10 +1,10 @@
 import React from 'react'
-import Signin from './components/Signin'
+import GSiginIn from './components/GSiginIn'
 const app = () => {
     return (
         <div>
             <div>
-                <Signin />
+                <GSiginIn />
             </div>
         </div>
     )
