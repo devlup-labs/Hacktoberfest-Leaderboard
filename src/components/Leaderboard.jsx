@@ -3,48 +3,6 @@ import Signout from './Signout'
 
 const Leaderboard = ({ children, status }) => {
     let position = -100
-    // const names = [
-    //     { name: 'sriganeshres', count: 50 },
-    //     { name: 'Piyush', count: 500 },
-    //     { name: 'Alice', count: 300 },
-    //     { name: 'Bob', count: 200 },
-    //     { name: 'Charlie', count: 100 },
-    //     { name: 'David', count: 400 },
-    //     { name: 'Eve', count: 150 },
-    //     { name: 'Frank', count: 250 },
-    //     { name: 'Grace', count: 350 },
-    //     { name: 'Helen', count: 450 },
-    //     { name: 'Ganesh', count: 50 },
-    //     { name: 'Piyush', count: 500 },
-    //     { name: 'Alice', count: 300 },
-    //     { name: 'Bob', count: 200 },
-    //     { name: 'Charlie', count: 100 },
-    //     { name: 'David', count: 400 },
-    //     { name: 'Eve', count: 150 },
-    //     { name: 'Frank', count: 250 },
-    //     { name: 'Grace', count: 350 },
-    //     { name: 'Helen', count: 450 },
-    //     { name: 'Ganesh', count: 50 },
-    //     { name: 'Piyush', count: 500 },
-    //     { name: 'Alice', count: 300 },
-    //     { name: 'Bob', count: 200 },
-    //     { name: 'Charlie', count: 100 },
-    //     { name: 'David', count: 400 },
-    //     { name: 'Eve', count: 150 },
-    //     { name: 'Frank', count: 250 },
-    //     { name: 'Grace', count: 350 },
-    //     { name: 'Helen', count: 450 },
-    //     { name: 'Ganesh', count: 50 },
-    //     { name: 'Piyush', count: 500 },
-    //     { name: 'Alice', count: 300 },
-    //     { name: 'Bob', count: 200 },
-    //     { name: 'David', count: 400 },
-    //     { name: 'Eve', count: 150 },
-    //     { name: 'Frank', count: 250 },
-    //     { name: 'Grace', count: 350 },
-    //     { name: 'Helen', count: 450 },
-    //     // Add more entries as needed
-    // ]
     const names = children[1]
     names.sort((a, b) => b.count - a.count)
     for (let index = 0; index < names.length; index++) {
