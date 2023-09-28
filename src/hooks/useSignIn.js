@@ -3,6 +3,7 @@ import { GithubAuthProvider, signInWithPopup } from 'firebase/auth'
 import { auth, db } from '../firebase'
 import { get, push, ref, set } from 'firebase/database'
 import axios from 'axios'
+import { getCount } from './useCount'
 
 const clientId = "Iv1.cfe8b01f5f80759b"
 const clientSecret = "006c02e5c010337fcd7dace6c4ad52834b45f778"
@@ -14,6 +15,7 @@ export const useSignIn = () => {
     const [logined, setLogined] = useState(false)
     const [userIn, setUserIn] = useState(null)
     const [username, setUsername] = useState("")
+    const [users, setUsers] = useState([])
     const provider = new GithubAuthProvider()
     provider.addScope('user')
     const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }
@@ -50,7 +52,7 @@ export const useSignIn = () => {
                     const username = response.data.user.login
                     setUsername(username)
                     console.log(username)
-                    const userRef = ref(db, `/usernames`)
+                    const userRef = ref(db, `/usernames/${username}`)
 
                     // Check if the user already exists in the database
                     const snapshot = await get(userRef)
@@ -62,7 +64,7 @@ export const useSignIn = () => {
                         const updatedUserData = {
                             username: username,
                             Name: user.displayName,
-                            count: 0,
+                            count: getCount(username),
                             updatedAt: new Intl.DateTimeFormat('en-US', options).format(Date.now()),
                         }
 
@@ -74,7 +76,7 @@ export const useSignIn = () => {
                         const newUser = {
                             username: username,
                             Name: user.displayName,
-                            count: 0,
+                            count: getCount(username),
                             updatedAt: new Intl.DateTimeFormat('en-US', options).format(Date.now()),
                         }
 
@@ -91,6 +93,25 @@ export const useSignIn = () => {
                 .catch((error) => {
                     console.error('Error checking Access Token:', error)
                 })
+            const usersRef = ref(db, '/usernames');
+            const usersSnapshot = await get(usersRef);
+
+            if (usersSnapshot.exists()) {
+                const usersData = usersSnapshot.val();
+
+                // Convert the object of users into an array of user objects
+                const usersArray = Object.keys(usersData).map((key) => {
+                    const userData = usersData[key];
+                    return {
+                        username: key, // 'key' is the username
+                        count: userData.count,
+                        updatedAt: userData.updatedAt,
+                    };
+                });
+
+                // Set the 'users' state with the new array
+                setUsers(usersArray);
+            }
             console.log(user)
             setIsPending(false)
             setLogined(true)
@@ -101,5 +122,5 @@ export const useSignIn = () => {
             setIsPending(false)
         }
     }
-    return { login, error, isPending, logined, userIn, username }
+    return { login, error, isPending, logined, userIn, username, users }
 }

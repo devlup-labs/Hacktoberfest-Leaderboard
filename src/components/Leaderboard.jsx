@@ -3,51 +3,52 @@ import Signout from './Signout'
 
 const Leaderboard = ({ children, status }) => {
     let position = -100
-    const names = [
-        { name: 'sriganeshres', count: 50 },
-        { name: 'Piyush', count: 500 },
-        { name: 'Alice', count: 300 },
-        { name: 'Bob', count: 200 },
-        { name: 'Charlie', count: 100 },
-        { name: 'David', count: 400 },
-        { name: 'Eve', count: 150 },
-        { name: 'Frank', count: 250 },
-        { name: 'Grace', count: 350 },
-        { name: 'Helen', count: 450 },
-        { name: 'Ganesh', count: 50 },
-        { name: 'Piyush', count: 500 },
-        { name: 'Alice', count: 300 },
-        { name: 'Bob', count: 200 },
-        { name: 'Charlie', count: 100 },
-        { name: 'David', count: 400 },
-        { name: 'Eve', count: 150 },
-        { name: 'Frank', count: 250 },
-        { name: 'Grace', count: 350 },
-        { name: 'Helen', count: 450 },
-        { name: 'Ganesh', count: 50 },
-        { name: 'Piyush', count: 500 },
-        { name: 'Alice', count: 300 },
-        { name: 'Bob', count: 200 },
-        { name: 'Charlie', count: 100 },
-        { name: 'David', count: 400 },
-        { name: 'Eve', count: 150 },
-        { name: 'Frank', count: 250 },
-        { name: 'Grace', count: 350 },
-        { name: 'Helen', count: 450 },
-        { name: 'Ganesh', count: 50 },
-        { name: 'Piyush', count: 500 },
-        { name: 'Alice', count: 300 },
-        { name: 'Bob', count: 200 },
-        { name: 'David', count: 400 },
-        { name: 'Eve', count: 150 },
-        { name: 'Frank', count: 250 },
-        { name: 'Grace', count: 350 },
-        { name: 'Helen', count: 450 },
-        // Add more entries as needed
-    ]
+    // const names = [
+    //     { name: 'sriganeshres', count: 50 },
+    //     { name: 'Piyush', count: 500 },
+    //     { name: 'Alice', count: 300 },
+    //     { name: 'Bob', count: 200 },
+    //     { name: 'Charlie', count: 100 },
+    //     { name: 'David', count: 400 },
+    //     { name: 'Eve', count: 150 },
+    //     { name: 'Frank', count: 250 },
+    //     { name: 'Grace', count: 350 },
+    //     { name: 'Helen', count: 450 },
+    //     { name: 'Ganesh', count: 50 },
+    //     { name: 'Piyush', count: 500 },
+    //     { name: 'Alice', count: 300 },
+    //     { name: 'Bob', count: 200 },
+    //     { name: 'Charlie', count: 100 },
+    //     { name: 'David', count: 400 },
+    //     { name: 'Eve', count: 150 },
+    //     { name: 'Frank', count: 250 },
+    //     { name: 'Grace', count: 350 },
+    //     { name: 'Helen', count: 450 },
+    //     { name: 'Ganesh', count: 50 },
+    //     { name: 'Piyush', count: 500 },
+    //     { name: 'Alice', count: 300 },
+    //     { name: 'Bob', count: 200 },
+    //     { name: 'Charlie', count: 100 },
+    //     { name: 'David', count: 400 },
+    //     { name: 'Eve', count: 150 },
+    //     { name: 'Frank', count: 250 },
+    //     { name: 'Grace', count: 350 },
+    //     { name: 'Helen', count: 450 },
+    //     { name: 'Ganesh', count: 50 },
+    //     { name: 'Piyush', count: 500 },
+    //     { name: 'Alice', count: 300 },
+    //     { name: 'Bob', count: 200 },
+    //     { name: 'David', count: 400 },
+    //     { name: 'Eve', count: 150 },
+    //     { name: 'Frank', count: 250 },
+    //     { name: 'Grace', count: 350 },
+    //     { name: 'Helen', count: 450 },
+    //     // Add more entries as needed
+    // ]
+    const names = children[1]
     names.sort((a, b) => b.count - a.count)
     for (let index = 0; index < names.length; index++) {
-        if (names[index].name === children) {
+        if (names[index].username === children[0]) {
             position = index + 1
             break
         }
@@ -70,7 +71,7 @@ const Leaderboard = ({ children, status }) => {
             {status ? (
                 <>
                     <p>Hi</p>
-                    {children}
+                    {children[0]}
                     <h1 className="text-2xl font-bold text-center my-4 text-blue-700">Hacktoberfest Leaderboard</h1>
                     <div className="flex flex-col justify-between w-2/3 mx-auto">
                         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -90,8 +91,8 @@ const Leaderboard = ({ children, status }) => {
                                         <tbody className="bg-white divide-y divide-gray-200">
                                             {
                                                 visibleData.map((item, index) => (
-                                                    <tr key={index} className={item.name === children ? 'bg-slate-700' : ''}>
-                                                        <td className="px-6 py-4 whitespace-nowrap">{item.name}</td>
+                                                    <tr key={index} className={item.username === children ? 'bg-slate-700' : ''}>
+                                                        <td className="px-6 py-4 whitespace-nowrap">{item.username}</td>
                                                         <td className="px-6 py-4 whitespace-nowrap">{item.count}</td>
                                                     </tr>
                                                 ))

@@ -3,13 +3,13 @@ import { useSignIn } from '../hooks/useSignIn'
 import Leaderboard from './Leaderboard'
 
 const Signin = () => {
-    const { login, isPending, logined, username } = useSignIn()
+    const { login, isPending, logined, username, users } = useSignIn()
     return (
         <div>
             {logined ? (
                 <div>
                     <Leaderboard status={logined} >
-                        {username}
+                        {[username, users]}
                     </Leaderboard>
                 </div>
             ) : <div>
