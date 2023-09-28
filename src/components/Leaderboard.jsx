@@ -91,7 +91,7 @@ const Leaderboard = ({ children, status }) => {
                                         <tbody className="bg-white divide-y divide-gray-200">
                                             {
                                                 visibleData.map((item, index) => (
-                                                    <tr key={index} className={item.username === children ? 'bg-slate-700' : ''}>
+                                                    <tr key={index} className={item.username === children[0] ? 'bg-slate-700' : ''}>
                                                         <td className="px-6 py-4 whitespace-nowrap">{item.username}</td>
                                                         <td className="px-6 py-4 whitespace-nowrap">{item.count}</td>
                                                     </tr>
