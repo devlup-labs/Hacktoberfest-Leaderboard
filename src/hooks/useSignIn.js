@@ -3,10 +3,11 @@ import { GithubAuthProvider, signInWithPopup } from 'firebase/auth'
 import { auth, db } from '../firebase'
 import { get, push, ref, set } from 'firebase/database'
 import axios from 'axios'
-import { getCount } from './useCount'
+import {getCount, getAcceptedCount}   from './useCount'
+import { Await } from 'react-router-dom'
 
-const clientId = "Iv1.cfe8b01f5f80759b"
-const clientSecret = "006c02e5c010337fcd7dace6c4ad52834b45f778"
+const clientId = process.env.REACT_APP_CLIENTID
+const clientSecret = process.env.REACT_APP_CLIENTSECRET
 
 
 export const useSignIn = () => {
@@ -64,21 +65,27 @@ export const useSignIn = () => {
                         const updatedUserData = {
                             username: username,
                             Name: user.displayName,
-                            count: getCount(username),
+                            HacktoberFestContributions: await getCount(username),
+                            AcceptedHacktoberFestPRs: await getAcceptedCount(username),
                             updatedAt: new Intl.DateTimeFormat('en-US', options).format(Date.now()),
                         }
 
                         set(userRef, updatedUserData) // Update the user data in the database
 
-                        console.log('User data updated')
+                        console.log('User data updated in the database')
+                        console.log('User data:', updatedUserData); 
+
                     } else {
                         // If the user doesn't exist, create a new user object
                         const newUser = {
                             username: username,
                             Name: user.displayName,
-                            count: getCount(username),
+                            HacktoberFestContributions: await getCount(username),
+                            AcceptedHacktoberFestPRs: await getAcceptedCount(username),
                             updatedAt: new Intl.DateTimeFormat('en-US', options).format(Date.now()),
                         }
+                        console.log("the count in new User is",newUser.HacktoberFestContributions);
+                        console.log("the count in new User is",newUser.AcceptedHacktoberFestPRs);
 
                         // Push the new user object to the database
                         push(userRef, newUser)
@@ -104,7 +111,11 @@ export const useSignIn = () => {
                     const userData = usersData[key];
                     return {
                         username: key, // 'key' is the username
-                        count: userData.count,
+                        // count: userData.count,
+                        // HacktoberFestContributions: await getCount(username),
+                        // AcceptedHacktoberFestPRs: await getAcceptedCount(username),
+                        HacktoberFestContributions: userData.HacktoberFestContributions,
+                        AcceptedHacktoberFestPRs: userData.AcceptedHacktoberFestPRs,
                         updatedAt: userData.updatedAt,
                     };
                 });
