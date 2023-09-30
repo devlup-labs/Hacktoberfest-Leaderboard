@@ -1,21 +1,19 @@
+
 import { useState } from 'react'
 import { GithubAuthProvider, signInWithPopup } from 'firebase/auth'
 import { auth, db } from '../firebase'
 import { get, push, ref, set } from 'firebase/database'
 import axios from 'axios'
-import {getCount, getAcceptedCount}   from './useCount'
+import { getCount, getAcceptedCount } from './useCount'
 import { Await } from 'react-router-dom'
 
 const clientId = process.env.REACT_APP_CLIENTID
 const clientSecret = process.env.REACT_APP_CLIENTSECRET
-
-
 export const useSignIn = () => {
     const [error, setError] = useState(false)
     const [isPending, setIsPending] = useState(false)
     const [logined, setLogined] = useState(false)
     const [userIn, setUserIn] = useState(null)
-    const [username, setUsername] = useState("")
     const [users, setUsers] = useState([])
     const provider = new GithubAuthProvider()
     provider.addScope('user')
@@ -51,7 +49,6 @@ export const useSignIn = () => {
                 .then(async (response) => {
                     console.log('Access Token Info:', response.data)
                     const username = response.data.user.login
-                    setUsername(username)
                     console.log(username)
                     const userRef = ref(db, `/usernames/${username}`)
 
@@ -73,7 +70,7 @@ export const useSignIn = () => {
                         set(userRef, updatedUserData) // Update the user data in the database
 
                         console.log('User data updated in the database')
-                        console.log('User data:', updatedUserData); 
+                        console.log('User data:', updatedUserData);
 
                     } else {
                         // If the user doesn't exist, create a new user object
@@ -84,8 +81,8 @@ export const useSignIn = () => {
                             AcceptedHacktoberFestPRs: await getAcceptedCount(username),
                             updatedAt: new Intl.DateTimeFormat('en-US', options).format(Date.now()),
                         }
-                        console.log("the count in new User is",newUser.HacktoberFestContributions);
-                        console.log("the count in new User is",newUser.AcceptedHacktoberFestPRs);
+                        console.log("the count in new User is", newUser.HacktoberFestContributions);
+                        console.log("the count in new User is", newUser.AcceptedHacktoberFestPRs);
 
                         // Push the new user object to the database
                         push(userRef, newUser)
@@ -133,5 +130,5 @@ export const useSignIn = () => {
             setIsPending(false)
         }
     }
-    return { login, error, isPending, logined, userIn, username, users }
+    return { login, error, isPending, logined, userIn, users }
 }

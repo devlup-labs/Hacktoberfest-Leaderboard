@@ -1,16 +1,11 @@
+
+
 import React, { useState } from 'react'
 import Signout from './Signout'
 
 const Leaderboard = ({ children, status }) => {
-    let position = -100
-    const names = children[1]
+    const names = children
     names.sort((a, b) => b.HacktoberFestContributions - a.HacktoberFestContributions)
-    for (let index = 0; index < names.length; index++) {
-        if (names[index].username === children[0]) {
-            position = index + 1
-            break
-        }
-    }
     const itemsPerPage = 10
     const [currentPage, setCurrentPage] = useState(1)
 
@@ -28,8 +23,6 @@ const Leaderboard = ({ children, status }) => {
         <div>
             {status ? (
                 <>
-                    <p>Hi</p>
-                    {children[0]}
                     <h1 className="text-2xl font-bold text-center my-4 text-blue-700">Hacktoberfest Leaderboard</h1>
                     <div className="flex flex-col justify-between w-2/3 mx-auto">
                         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -42,23 +35,24 @@ const Leaderboard = ({ children, status }) => {
                                                     Name
                                                 </th>
                                                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                HacktoberFestContributions
+                                                    HacktoberFestContributions
                                                 </th>
                                                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                AcceptedHacktoberFestPRs
+                                                    AcceptedHacktoberFestPRs
                                                 </th>
-                                                {/* <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                    Count
-                                                </th> */}
+                                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    UpdatedAt
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody className="bg-white divide-y divide-gray-200">
                                             {
                                                 visibleData.map((item, index) => (
-                                                    <tr key={index} className={item.username === children[0] ? 'bg-slate-700' : ''}>
+                                                    <tr key={index}>
                                                         <td className="px-6 py-4 whitespace-nowrap">{item.username}</td>
                                                         <td className="px-6 py-4 whitespace-nowrap">{item.HacktoberFestContributions}</td>
                                                         <td className="px-6 py-4 whitespace-nowrap">{item.AcceptedHacktoberFestPRs}</td>
+                                                        <td className="px-6 py-4 whitespace-nowrap">{item.updatedAt}</td>
                                                     </tr>
                                                 ))
                                             }
@@ -84,11 +78,6 @@ const Leaderboard = ({ children, status }) => {
                                 </button>
                             ))}
                         </nav>
-                    </div>
-                    <div>
-                        <p className='text-gray-500 capitalize text-2xl'>
-                            You are in the <span className='text-slate-950 text-3xl font-semibold mx-auto text-center'>{position}</span> position currently.
-                        </p>
                     </div>
                     <Signout />
                 </>
