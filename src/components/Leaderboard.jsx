@@ -4,7 +4,7 @@ import Signout from './Signout'
 const Leaderboard = ({ children, status }) => {
     let position = -100
     const names = children[1]
-    names.sort((a, b) => b.count - a.count)
+    names.sort((a, b) => b.HacktoberFestContributions - a.HacktoberFestContributions)
     for (let index = 0; index < names.length; index++) {
         if (names[index].username === children[0]) {
             position = index + 1
@@ -42,8 +42,14 @@ const Leaderboard = ({ children, status }) => {
                                                     Name
                                                 </th>
                                                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                    Count
+                                                HacktoberFestContributions
                                                 </th>
+                                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                AcceptedHacktoberFestPRs
+                                                </th>
+                                                {/* <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    Count
+                                                </th> */}
                                             </tr>
                                         </thead>
                                         <tbody className="bg-white divide-y divide-gray-200">
@@ -51,7 +57,8 @@ const Leaderboard = ({ children, status }) => {
                                                 visibleData.map((item, index) => (
                                                     <tr key={index} className={item.username === children[0] ? 'bg-slate-700' : ''}>
                                                         <td className="px-6 py-4 whitespace-nowrap">{item.username}</td>
-                                                        <td className="px-6 py-4 whitespace-nowrap">{item.count}</td>
+                                                        <td className="px-6 py-4 whitespace-nowrap">{item.HacktoberFestContributions}</td>
+                                                        <td className="px-6 py-4 whitespace-nowrap">{item.AcceptedHacktoberFestPRs}</td>
                                                     </tr>
                                                 ))
                                             }
