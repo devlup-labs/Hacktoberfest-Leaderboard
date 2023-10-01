@@ -29,9 +29,16 @@ export const getCount = async (UsrName) => {
       const data = await fetchDetails(UsrName);
       let cnt = 0;
       // let cntAcc = 0;
-  
+      
       for (const item of data.items) {
         const newLink = item.repository_url;
+        // console.log(item.closed_at);
+        let closedPrDate = item.closed_at.split('T')[0];
+        // check only for PRs closed in October and later
+        if (closedPrDate.split('-')[1] !== '10' || closedPrDate.split('-')[0] !== '2023') {
+          continue;
+        }
+        // console.log(item.closed_at)
         const repoData = await ParentDetails(newLink);
   
         for (const topic of repoData.topics) {
@@ -40,8 +47,6 @@ export const getCount = async (UsrName) => {
             // setCount(count+1);
           }
         }
-
-       
       }
 
 

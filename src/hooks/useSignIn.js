@@ -5,7 +5,7 @@ import { auth, db } from '../firebase'
 import { get, push, ref, set } from 'firebase/database'
 import axios from 'axios'
 import { getCount, getAcceptedCount } from './useCount'
-import { Await } from 'react-router-dom'
+// import { Await } from 'react-router-dom'
 
 const clientId = process.env.REACT_APP_CLIENTID
 const clientSecret = process.env.REACT_APP_CLIENTSECRET
