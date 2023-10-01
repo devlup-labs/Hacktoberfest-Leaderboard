@@ -15,6 +15,15 @@ export const useGSignIn = () => {
             }
             setLogined(true)
             setIsPending(false)
+            // console.log("response is ",res.user.email);
+            let email = res.user.email
+            let dmin = email.split('@')[1]
+            // console.log(dmin)
+            if (dmin !== "iitj.ac.in") {
+                alert("Please use your college email id")
+                setLogined(false)
+                setIsPending(false)
+            }
         } catch (error) {
             console.log(error)
         }

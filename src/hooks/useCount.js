@@ -22,51 +22,54 @@ const ParentDetails = async (api)=>{
     }
 }
 
-
 export const getCount = async (UsrName) => {
-  // const [count, setCount] = useState(0);
-    try {
-      const data = await fetchDetails(UsrName);
-      let cnt = 0;
-      // let cntAcc = 0;
-  
-      for (const item of data.items) {
-        const newLink = item.repository_url;
+  try {
+    const data = await fetchDetails(UsrName);
+    let cnt = 0;
+
+    for (const item of data.items) {
+      const newLink = item.repository_url;
+      const closedPrDate = new Date(item.closed_at);
+
+      // Check if PR was closed in October 2023
+      if (closedPrDate.getMonth() === 9 && closedPrDate.getFullYear() === 2023) {
         const repoData = await ParentDetails(newLink);
-  
+
         for (const topic of repoData.topics) {
           if (topic === 'hacktoberfest') {
             cnt++;
-            // setCount(count+1);
           }
         }
-
-       
       }
-
+    }
 
     return cnt;
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  } catch (error) {
+    console.error(error);
+    return 0; 
+  }
+};
+
   
 export const getAcceptedCount = async (UsrName) => {
     try {
       const data = await fetchDetails(UsrName);
       let cntAcc = 0;
-  
+      // console.log(data);
       for (const item of data.items) {
-        item.labels.forEach(label => {
-          if (label.name === 'hacktoberfest-accepted') {
-            cntAcc++;
-          }
-        });
+        const closedPrDate = new Date(item.closed_at);
+        if (closedPrDate.getMonth() === 9 && closedPrDate.getFullYear() === 2023) {
+          item.labels.forEach(label => {
+            if (label.name === 'hacktoberfest-accepted') {
+              cntAcc++;
+            }
+          });
+        } 
       }
-  
       // console.log(`Total count of "hacktoberfest-accepted": ${cntAcc}`);
     return cntAcc;
     } catch (error) {
       console.error(error);
+      return 0;
     }
   };
