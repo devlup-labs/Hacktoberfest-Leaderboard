@@ -1,4 +1,3 @@
-
 import { useState } from 'react'
 import { GithubAuthProvider, signInWithPopup } from 'firebase/auth'
 import { auth, db } from '../firebase'
@@ -101,16 +100,13 @@ export const useSignIn = () => {
             const usersSnapshot = await get(usersRef);
 
             if (usersSnapshot.exists()) {
-                const usersData = usersSnapshot.val();
+                const usersData = await usersSnapshot.val();
 
                 // Convert the object of users into an array of user objects
-                const usersArray = Object.keys(usersData).map((key) => {
+                const usersArray = await Object.keys(usersData).map((key) => {
                     const userData = usersData[key];
                     return {
                         username: key, // 'key' is the username
-                        // count: userData.count,
-                        // HacktoberFestContributions: await getCount(username),
-                        // AcceptedHacktoberFestPRs: await getAcceptedCount(username),
                         HacktoberFestContributions: userData.HacktoberFestContributions,
                         AcceptedHacktoberFestPRs: userData.AcceptedHacktoberFestPRs,
                         updatedAt: userData.updatedAt,
@@ -118,7 +114,7 @@ export const useSignIn = () => {
                 });
 
                 // Set the 'users' state with the new array
-                setUsers(usersArray);
+                await setUsers(usersArray);
             }
             console.log(user)
             setIsPending(false)

@@ -1,13 +1,13 @@
 import React from 'react'
 import GSiginIn from './components/GSiginIn'
-const app = () => {
+const App = () => {
     return (
-        <div>
-            <div>
+        <div className='body'>
+            <div className='flex flex-col gap-8'>
                 <GSiginIn />
             </div>
         </div>
     )
 }
 
-export default app
+export default App
