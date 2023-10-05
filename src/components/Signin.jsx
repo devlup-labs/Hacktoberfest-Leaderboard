@@ -4,7 +4,8 @@ import Leaderboard from './Leaderboard'
 import LeaderboardNoAuth from './LeaderboardsNoAuth'
 
 const Signin = () => {
-    const { login, isPending, logined, users } = useSignIn()
+    let { login, isPending, logined, users, refreshData } = useSignIn()
+
     return (
         <div>
             {logined ? (
@@ -12,6 +13,9 @@ const Signin = () => {
                     <Leaderboard status={logined} >
                         {users}
                     </Leaderboard>
+                    <button onClick={refreshData} className='text-white bg-blue-400'>
+                        Refresh
+                    </button>
                 </div>
             ) : <div className='flex flex-col gap-8 w-2/3 mx-auto'>
                 <LeaderboardNoAuth />
