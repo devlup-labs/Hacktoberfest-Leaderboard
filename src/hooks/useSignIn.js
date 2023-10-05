@@ -126,5 +126,27 @@ export const useSignIn = () => {
             setIsPending(false)
         }
     }
-    return { login, error, isPending, logined, userIn, users }
+    const refreshData = async () => {
+        const usersRef = ref(db, '/usernames');
+        const usersSnapshot = await get(usersRef);
+        if (usersSnapshot.exists()) {
+            const usersData = await usersSnapshot.val();
+
+            // Convert the object of users into an array of user objects
+            const usersArray = await Object.keys(usersData).map((key) => {
+                const userData = usersData[key];
+                return {
+                    username: key, // 'key' is the username
+                    HacktoberFestContributions: userData.HacktoberFestContributions,
+                    AcceptedHacktoberFestPRs: userData.AcceptedHacktoberFestPRs,
+                    updatedAt: userData.updatedAt,
+                };
+            });
+
+            // Set the 'users' state with the new array
+            await setUsers(usersArray);
+            console.log(usersArray);
+        }
+    }
+    return { login, error, isPending, logined, userIn, users, refreshData }
 }
