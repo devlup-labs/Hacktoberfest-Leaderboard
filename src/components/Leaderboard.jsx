@@ -1,5 +1,9 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
+// import Signout from "./Signout";
+import React, { useState, useEffect } from "react";
 import Signout from "./Signout";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Leaderboard = ({ children, status }) => {
   const names = children;
