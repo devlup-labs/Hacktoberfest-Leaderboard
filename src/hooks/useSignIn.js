@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useState } from "react";
 import { GithubAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, db } from "../firebase";
@@ -6,19 +5,6 @@ import { get, push, ref, set } from "firebase/database";
 import axios from "axios";
 import { getCount, getAcceptedCount } from "./useCount";
 // import { Await } from 'react-router-dom'
-=======
-import { useState } from 'react'
-import { GithubAuthProvider, signInWithPopup } from 'firebase/auth'
-import { auth, db } from '../firebase'
-import { get, push, ref, set } from 'firebase/database'
-import axios from 'axios'
-import {getCount, getAcceptedCount}   from './useCount'
-import { Await } from 'react-router-dom'
-
-const clientId = "Iv1.cfe8b01f5f80759b"
-const clientSecret = "006c02e5c010337fcd7dace6c4ad52834b45f778"
-
->>>>>>> e7632c5706d270785b20a2418ca13a517fba4cb3
 
 const clientId = process.env.REACT_APP_CLIENTID;
 const clientSecret = process.env.REACT_APP_CLIENTSECRET;
@@ -78,7 +64,6 @@ export const useSignIn = () => {
           if (snapshot.exists()) {
             console.log("User already exists in the database");
 
-<<<<<<< HEAD
             // If the user exists, update the "updatedAt" timestamp
             const updatedUserData = {
               username: username,
@@ -89,20 +74,9 @@ export const useSignIn = () => {
                 Date.now()
               ),
             };
-=======
-                        // If the user exists, update the "updatedAt" timestamp
-                        const updatedUserData = {
-                            username: username,
-                            Name: user.displayName,
-                            HacktoberFestContributions: await getCount(username),
-                            AcceptedHacktoberFestPRs: await getAcceptedCount(username),
-                            updatedAt: new Intl.DateTimeFormat('en-US', options).format(Date.now()),
-                        }
->>>>>>> e7632c5706d270785b20a2418ca13a517fba4cb3
 
             set(userRef, updatedUserData); // Update the user data in the database
 
-<<<<<<< HEAD
             console.log("User data updated in the database");
             console.log("User data:", updatedUserData);
           } else {
@@ -124,22 +98,6 @@ export const useSignIn = () => {
               "the count in new User is",
               newUser.AcceptedHacktoberFestPRs
             );
-=======
-                        console.log('User data updated in the database')
-                        console.log('User data:', updatedUserData); 
-
-                    } else {
-                        // If the user doesn't exist, create a new user object
-                        const newUser = {
-                            username: username,
-                            Name: user.displayName,
-                            HacktoberFestContributions: await getCount(username),
-                            AcceptedHacktoberFestPRs: await getAcceptedCount(username),
-                            updatedAt: new Intl.DateTimeFormat('en-US', options).format(Date.now()),
-                        }
-                        console.log("the count in new User is",newUser.HacktoberFestContributions);
-                        console.log("the count in new User is",newUser.AcceptedHacktoberFestPRs);
->>>>>>> e7632c5706d270785b20a2418ca13a517fba4cb3
 
             // Push the new user object to the database
             push(userRef, newUser)
@@ -160,7 +118,6 @@ export const useSignIn = () => {
       if (usersSnapshot.exists()) {
         const usersData = await usersSnapshot.val();
 
-<<<<<<< HEAD
         // Convert the object of users into an array of user objects
         const usersArray = await Object.keys(usersData).map((key) => {
           const userData = usersData[key];
@@ -171,21 +128,6 @@ export const useSignIn = () => {
             updatedAt: userData.updatedAt,
           };
         });
-=======
-                // Convert the object of users into an array of user objects
-                const usersArray = Object.keys(usersData).map((key) => {
-                    const userData = usersData[key];
-                    return {
-                        username: key, // 'key' is the username
-                        // count: userData.count,
-                        // HacktoberFestContributions: await getCount(username),
-                        // AcceptedHacktoberFestPRs: await getAcceptedCount(username),
-                        HacktoberFestContributions: userData.HacktoberFestContributions,
-                        AcceptedHacktoberFestPRs: userData.AcceptedHacktoberFestPRs,
-                        updatedAt: userData.updatedAt,
-                    };
-                });
->>>>>>> e7632c5706d270785b20a2418ca13a517fba4cb3
 
         // Set the 'users' state with the new array
         await setUsers(usersArray);
