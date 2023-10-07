@@ -3,7 +3,7 @@ import GSiginIn from './components/GSiginIn'
 const App = () => {
     return (
         <div className='body'>
-            <div className='flex flex-col gap-8'>
+            <div className=''>
                 <GSiginIn />
             </div>
         </div>
