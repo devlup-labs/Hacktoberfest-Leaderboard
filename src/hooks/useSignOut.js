@@ -10,10 +10,10 @@ export const useSignout = () => {
             await signOut(auth)
             console.log("user logged out")
             setOut(true)
+            window.location.reload()
         } catch (error) {
             console.log(error.message);
         }
     };
-
     return { logout, out };
 };
