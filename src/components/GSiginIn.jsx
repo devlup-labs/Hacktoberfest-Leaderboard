@@ -1,15 +1,10 @@
-import React,{useEffect} from "react";
+import React from "react";
 import { useGSignIn } from "../hooks/useGoogleSignin";
 import Signin from "./Signin";
 import LeaderboardNoAuth from "./LeaderboardsNoAuth";
 import Typewriter from "typewriter-effect";
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 
 const GSiginIn = () => {
-    useEffect(() => {
-        AOS.init();
-      }, [])
   const { login, logined, isPending } = useGSignIn();
   return (
     <div className="body h-screen">
@@ -18,30 +13,41 @@ const GSiginIn = () => {
           <Signin />
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-1 bg-black max-lg:grid-cols-1">
-          <div className=" h-screen  flex items-center justify-center grid grid-row-2 ">
-            <div className=" font-bold bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% bg-clip-text text-transparent  text-6xl max-md:text-5xl">
+        <div>
+          <div className=" h-screen block w-2/5 absolute left-0 flex items-center justify-center flex flex-col max-xl:w-full max-xl:relative">
+            <div className=" my-20 m-auto  font-bold bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% bg-clip-text text-transparent  text-6xl max-md:text-5xl max-[425px]:text-4xl">
               <Typewriter
-              className=" "
+                className=" "
                 options={{
                   strings: ["HACKTOBER FEST"],
                   autoStart: true,
                   loop: true,
                 }}
-              /><br/>
+              />
+            </div>
+            <br />
+            
+            <div className="block">
+              <button
+                className="bg-gradient-to-r text-3xl max-[425px]:text-2xl from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 p-3 rounded-lg"
+                onClick={login}
+              >
+                {!isPending ? "Register" : "Loading...."}
+              </button>
+            </div>
+            <div className="top-24 relative hidden max-xl:block" >
+            <div class="h-0 w-0 border-x-8 border-x-transparent border-b-[16px] border-b-white"></div>
+            <div class="h-0 w-0 border-x-8 border-x-transparent border-b-[16px] border-b-white"></div>
+
             </div>
            
-            <div>
-            <button className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 p-3 rounded-lg" onClick={login}>
-              {!isPending ? "Sign In with Google" : "Loading...."}
-            </button>
-            </div>
           </div>
-          <div className="h-screen  flex items-center justify-center mx-10" data-aos="zoom-in" data-aos-duration="3000">
+          <div className="bg-black h-screen block w-3/5 absolute right-0 flex items-center justify-center max-xl:w-full max-xl:relative">
             <LeaderboardNoAuth />
           </div>
         </div>
       )}
+      
     </div>
   );
 };
