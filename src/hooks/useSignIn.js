@@ -60,7 +60,7 @@ export const useSignIn = () => {
 
                     // Check if the user already exists in the database
                     const snapshot = await get(userRef);
-
+                    console.log('snapshot value', snapshot)
                     if (snapshot.exists()) {
                         console.log("User already exists in the database");
 
@@ -99,14 +99,16 @@ export const useSignIn = () => {
                             newUser.AcceptedHacktoberFestPRs
                         );
 
+                        console.log(newUser)
                         // Push the new user object to the database
-                        push(userRef, newUser)
-                            .then(() => {
-                                console.log("User added to the database");
-                            })
-                            .catch((error) => {
-                                console.error("Error adding user to the database:", error);
-                            });
+                        // push(userRef, newUser)
+                        //     .then(() => {
+                        //         console.log("User added to the database");
+                        //     })
+                        //     .catch((error) => {
+                        //         console.error("Error adding user to the database:", error);
+                        //     });
+                        set(userRef, newUser);
                     }
                 })
                 .catch((error) => {
