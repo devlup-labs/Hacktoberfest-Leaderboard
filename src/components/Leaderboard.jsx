@@ -30,7 +30,7 @@ const Leaderboard = ({ children, status }) => {
     <div className="bg-black">
       {status ? (
         <>
-          <div className="py-40">
+          <div className="py-20">
             <h1 className="text-2xl font-bold text-center  text-blue-700 text-4xl py-10">
               Hacktoberfest Leaderboard
             </h1>
@@ -61,7 +61,7 @@ const Leaderboard = ({ children, status }) => {
                           </th>
                           <th
                             scope="col"
-                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            lassName="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                           >
                             UpdatedAt
                           </th>
