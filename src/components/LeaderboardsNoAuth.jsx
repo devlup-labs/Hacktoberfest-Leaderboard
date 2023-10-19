@@ -11,7 +11,7 @@ const LeaderboardNoAuth = () => {
       </h1>
 
       <div className=" ">
-        <div className="overflow-auto rounded-lg shadow">
+        <div className="overflow-auto h-80 rounded-lg shadow">
           {isLoading ? (
             <p className="p-4 text-center text-white">Loading...</p>
           ) : (
@@ -71,7 +71,7 @@ const LeaderboardNoAuth = () => {
                   </tbody>
                 </table>
               </div>
-              <div className="min-[587px]:hidden grid grid-cols-1 gap-4">
+              <div className="min-[587px]:hidden  grid grid-cols-1 gap-4">
                 <div className="bg-white p-4 rounded-lg shadow">
                   <div className="flex items-center space-x-2 text-sm">
                     <div className="bg-green-200 rounded-lg p-1">user</div>

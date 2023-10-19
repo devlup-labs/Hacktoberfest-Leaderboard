@@ -3,5 +3,9 @@
 @tailwind utilities;
 
 .body{
-    background: #000300;
+    background:  #040720;
 }
+body::-webkit-scrollbar {
+    display: none;
+  }
+  
