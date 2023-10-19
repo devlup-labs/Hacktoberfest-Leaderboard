@@ -1,5 +1,4 @@
-// import React, { useState } from "react";
-// import Signout from "./Signout";
+
 import React, { useState, useEffect } from "react";
 import Signout from "./Signout";
 import AOS from "aos";
@@ -27,9 +26,10 @@ const Leaderboard = ({ children, status }) => {
   }, []);
 
   return (
-    <div className="bg-black">
+    <div className="bg-custom-blue">
       {status ? (
         <>
+
           <div className="py-20">
             <h1 className="text-2xl font-bold text-center  text-blue-700 text-4xl py-10">
               Hacktoberfest Leaderboard
