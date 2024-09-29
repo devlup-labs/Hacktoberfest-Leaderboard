@@ -1,73 +1,40 @@
-const fetchDetails = async (UsrName) => {
+const fetchDetails = async (UsrName, label) => {
   try {
-    const res = await fetch(`https://api.github.com/search/issues?q=is:pr+author:${UsrName}+type:pr&per_page=100&labels=true`)
-    if (!res.ok) throw new Error("Error")
-    const data = await res.json()
-    // console.log(data)
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-}
+    const res = await fetch(
+      `https://api.github.com/search/issues?q=is:pr+author:${UsrName}+type:pr+label:${label}&per_page=150&labels=true`
+    );
+    if (!res.ok) throw new Error("Error");
 
-const ParentDetails = async (api) => {
-  try {
-    const res = await fetch(api)
-    if (!res.ok) throw new Error("Error")
-    const data = await res.json()
-    // console.log(data)
-    return data;
+    const data = await res.json();
+    console.log(data);
+
+    // Check if 'items' exists in the data object
+    if (data.items) {
+      return data.items;
+    } else {
+      console.log("No items found");
+      return [];
+    }
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    return [];
   }
-}
+};
 
 export const getCount = async (UsrName) => {
   try {
-    const data = await fetchDetails(UsrName);
-    let cnt = 0;
-
-    for (const item of data.items) {
-      const newLink = item.repository_url;
-      const closedPrDate = new Date(item.closed_at);
-
-      // Check if PR was closed in October 2023
-      if (closedPrDate.getMonth() === 9 && closedPrDate.getFullYear() === 2023) {
-        const repoData = await ParentDetails(newLink);
-
-        for (const topic of repoData.topics) {
-          if (topic === 'hacktoberfest') {
-            cnt++;
-          }
-        }
-      }
-    }
-
-    return cnt;
+    const data = await fetchDetails(UsrName, "hacktoberfest");
+    return data.length; // Return the length of the array
   } catch (error) {
     console.error(error);
     return 0;
   }
 };
 
-
 export const getAcceptedCount = async (UsrName) => {
   try {
-    const data = await fetchDetails(UsrName);
-    let cntAcc = 0;
-    // console.log(data);
-    for (const item of data.items) {
-      const closedPrDate = new Date(item.closed_at);
-      if (closedPrDate.getMonth() === 9 && closedPrDate.getFullYear() === 2023) {
-        item.labels.forEach(label => {
-          if (label.name === 'hacktoberfest-accepted') {
-            cntAcc++;
-          }
-        });
-      }
-    }
-    // console.log(`Total count of "hacktoberfest-accepted": ${cntAcc}`);
-    return cntAcc;
+    const data = await fetchDetails(UsrName, "hello");
+    return data.length; // Return the length of the array
   } catch (error) {
     console.error(error);
     return 0;
