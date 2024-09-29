@@ -31,7 +31,7 @@ const Leaderboard = ({ children, status }) => {
         <>
 
           <div className="py-20">
-            <h1 className="text-2xl font-bold text-center  text-blue-700 text-4xl py-10">
+            <h1 className=" font-bold text-center  text-blue-700 text-4xl py-10">
               Hacktoberfest Leaderboard
             </h1>
             <div className="flex flex-col justify-between w-2/3 mx-auto">
@@ -67,7 +67,7 @@ const Leaderboard = ({ children, status }) => {
                           </th>
                         </tr>
                       </thead>
-                      <tbody className="bg-white divide-y divide-gray-200 bg-slate-200">
+                      <tbody className=" divide-y divide-gray-200 bg-slate-200">
                         {visibleData.map((item, index) => (
                           <tr key={index} className="hover:bg-slate-300">
                             <td className="px-6 py-4 whitespace-nowrap">
@@ -97,11 +97,10 @@ const Leaderboard = ({ children, status }) => {
                   <button
                     key={index}
                     onClick={() => handlePageChange(index + 1)}
-                    className={`${
-                      currentPage === index + 1
-                        ? "bg-blue-500 text-white"
-                        : "bg-white text-gray-700 hover:bg-gray-100"
-                    } px-3 py-2 rounded-md cursor-pointer mx-1`}
+                    className={`${currentPage === index + 1
+                      ? "bg-blue-500 text-white"
+                      : "bg-white text-gray-700 hover:bg-gray-100"
+                      } px-3 py-2 rounded-md cursor-pointer mx-1`}
                   >
                     {index + 1}
                   </button>
