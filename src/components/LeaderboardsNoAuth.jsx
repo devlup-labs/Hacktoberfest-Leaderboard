@@ -20,9 +20,10 @@ const LeaderboardNoAuth = () => {
 
   return (
     <div>
-      <h1 className="text-[#3b82f6] items-center text-center text-3xl my-5 font-mono">
-        BugBounty LEADERBOARD
+      <h1 className=" font-semibold text-center  text-[#3b82f6] text-4xl pt-10 pb-2">
+        BugBounty Leaderboard
       </h1>
+      <h3 className="text-xl font-semibold text-center pb-4 text-[#3b82f6]">Devlup Labs</h3>
       <div className="">
         <div className="overflow-auto rounded-lg">
           {isLoading ? (
@@ -30,44 +31,44 @@ const LeaderboardNoAuth = () => {
           ) : (
             <>
               {/* Desktop View */}
-                <div className="max-[587px]:hidden">
-                  <table className="w-full">
-                    <thead className="bg-[#3b82f6] border-b-2 border-[#3b82f6]">
-                      <tr>
-                        <th scope="col" className="p-3 text-sm font-semibold tracking-wide text-left uppercase">
-                          Username
-                        </th>
-                        <th scope="col" className="p-3 text-sm font-semibold tracking-wide text-left uppercase">
-                          Contributions
-                        </th>
-                        <th scope="col" className="p-3 text-sm font-semibold tracking-wide text-left uppercase">
-                          Accepeted Contributions
-                        </th>
-                        <th scope="col" className="p-3 text-sm font-semibold tracking-wide text-left uppercase">
-                          Updated At
-                        </th>
+              <div className="max-[587px]:hidden">
+                <table className="w-full">
+                  <thead className="bg-gray-100">
+                    <tr>
+                      <th scope="col" className="p-3 text-sm font-semibold tracking-wide text-left uppercase">
+                        Username
+                      </th>
+                      <th scope="col" className="p-3 text-sm font-semibold tracking-wide text-left uppercase">
+                        Contributions
+                      </th>
+                      <th scope="col" className="p-3 text-sm font-semibold tracking-wide text-left uppercase">
+                        Accepeted Contributions
+                      </th>
+                      <th scope="col" className="p-3 text-sm font-semibold tracking-wide text-left uppercase">
+                        Updated At
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="">
+                    {users.map((user) => (
+                      <tr key={user.username} className="bg-white">
+                        <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                          {user.username}
+                        </td>
+                        <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                          {user.HacktoberFestContributions}
+                        </td>
+                        <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                          {user.AcceptedHacktoberFestPRs}
+                        </td>
+                        <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                          {user.updatedAt}
+                        </td>
                       </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-100">
-                      {users.map((user) => (
-                        <tr key={user.username} className="hover:bg-slate-300 bg-white">
-                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                            {user.username}
-                          </td>
-                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                            {user.HacktoberFestContributions}
-                          </td>
-                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                            {user.AcceptedHacktoberFestPRs}
-                          </td>
-                          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                            {user.updatedAt}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
 
 
               {/* Mobile View */}
@@ -94,27 +95,27 @@ const LeaderboardNoAuth = () => {
               </div>
 
               {/* Pagination */}
-                <div className="mt-4 flex flex-col items-center">
-                  <nav className="pagination flex justify-center">
-                    {Array.from({ length: totalPages }).map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => handlePageChange(index + 1)}
-                        className={`${currentPage === index + 1
-                          ? "bg-blue-500 text-white"
-                          : "bg-white text-gray-700 hover:bg-gray-100"
-                          } px-3 py-2 rounded-md cursor-pointer mx-1`}
-                      >
-                        {index + 1}
-                      </button>
-                    ))}
-                  </nav>
+              <div className="mt-4 flex flex-col items-center">
+                <nav className="pagination flex justify-center">
+                  {Array.from({ length: totalPages }).map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handlePageChange(index + 1)}
+                      className={`${currentPage === index + 1
+                        ? "bg-blue-500 text-white"
+                        : "bg-white text-gray-700 hover:bg-gray-100"
+                        } px-3 py-2 rounded-md cursor-pointer mx-1`}
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
+                </nav>
 
-                  {/* Total Pages on a new line */}
-                  <div className="mt-2 text-sm text-center">
-                    Showing {startIndex + 1} to {endIndex} of {users.length}
-                  </div>
+                {/* Total Pages on a new line */}
+                <div className="mt-2 text-sm text-center">
+                  Showing {startIndex + 1} to {endIndex} of {users.length}
                 </div>
+              </div>
 
             </>
           )}

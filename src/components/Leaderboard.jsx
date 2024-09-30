@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect } from "react";
-import Signout from "./Signout";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -26,14 +25,14 @@ const Leaderboard = ({ children, status }) => {
   }, []);
 
   return (
-    <div className="bg-white mx-auto w-[3/4]">
+    <div className="mx-auto w-[3/4]">
       {status ? (
         <div className="pt-20">
           <h1 className=" font-semibold text-center  text-[#3b82f6] text-4xl pt-10 pb-2">
             BugBounty Leaderboard
           </h1>
           <h3 className="text-xl font-semibold text-center pb-4 text-[#3b82f6]">Devlup Labs</h3>
-          <div className="flex flex-col justify-between w-2/3 mx-auto">
+          <div className="flex flex-col justify-between w-[60%] mx-auto">
             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -109,7 +108,6 @@ const Leaderboard = ({ children, status }) => {
               Showing {startIndex + 1} to {endIndex} of {names.length}
             </div>
           </div>
-          <Signout />
         </div>
       ) : (
         <p>Signed Out</p>

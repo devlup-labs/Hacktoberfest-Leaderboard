@@ -1,5 +1,9 @@
-import { useState } from "react";
-import { GithubAuthProvider, signInWithPopup } from "firebase/auth";
+import { useEffect, useState } from "react";
+import {
+  GithubAuthProvider,
+  signInWithPopup,
+  onAuthStateChanged,
+} from "firebase/auth";
 import { auth, db } from "../firebase";
 import { get, ref, set } from "firebase/database";
 import axios from "axios";
@@ -7,6 +11,7 @@ import { getCount, getAcceptedCount } from "./useCount";
 
 const clientId = process.env.REACT_APP_CLIENTID;
 const clientSecret = process.env.REACT_APP_CLIENTSECRET;
+
 export const useSignIn = () => {
   const [error, setError] = useState(null);
   const [isPending, setIsPending] = useState(false);
@@ -100,6 +105,7 @@ export const useSignIn = () => {
       if (usersSnapshot.exists()) {
         const usersData = usersSnapshot.val();
         let usersArray = [];
+
         if (!checkTime()) {
           if (users.length === 0) {
             usersArray = await Promise.all(
@@ -123,27 +129,76 @@ export const useSignIn = () => {
           // Ensure promises are handled correctly
           usersArray = await Promise.all(
             Object.keys(usersData).map(async (key) => {
+              const contributions = await getCount(key);
+              const acceptedPRs = await getAcceptedCount(key);
+              const updatedAt = new Intl.DateTimeFormat(
+                "en-US",
+                options
+              ).format(Date.now());
+
+              // Update the user data in Firebase
+              const userRef = ref(db, `/usernames/${key}`);
+              await set(userRef, {
+                username: key,
+                HacktoberFestContributions: contributions,
+                AcceptedHacktoberFestPRs: acceptedPRs,
+                updatedAt: updatedAt,
+              });
+
               return {
                 username: key, // 'key' is the username
-                HacktoberFestContributions: await getCount(key),
-                AcceptedHacktoberFestPRs: await getAcceptedCount(key),
-                updatedAt: new Intl.DateTimeFormat("en-US", options).format(
-                  Date.now()
-                ),
+                HacktoberFestContributions: contributions,
+                AcceptedHacktoberFestPRs: acceptedPRs,
+                updatedAt: updatedAt,
               };
             })
           );
-        }
 
-        console.log("Fetched usersArray: ", usersArray);
-        setUsers(usersArray); // Update the state
-        console.log(usersArray);
-        return "Updated usersArray";
+          console.log("Fetched usersArray: ", usersArray);
+          setUsers(usersArray); // Update the state
+          console.log(usersArray);
+          return "Updated usersArray";
+        }
       }
     } catch (error) {
       console.error("Error refreshing data:", error);
     }
   };
+
+  // Check for user authentication state on component mount
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        setUserIn(user);
+        setLogined(true);
+        const username = user.displayName; // Or however you determine the username
+        const userRef = ref(db, `/usernames/${username}`);
+        const snapshot = await get(userRef);
+
+        if (snapshot.exists()) {
+          const userData = snapshot.val();
+          setUsers((prevUsers) => [
+            ...prevUsers,
+            {
+              username: username,
+              HacktoberFestContributions: userData.HacktoberFestContributions,
+              AcceptedHacktoberFestPRs: userData.AcceptedHacktoberFestPRs,
+              updatedAt: userData.updatedAt,
+            },
+          ]);
+        } else {
+          // Handle case where user data does not exist
+          console.log("User data does not exist in the database.");
+        }
+      } else {
+        setUserIn(null);
+        setLogined(false);
+      }
+    });
+
+    // Clean up subscription on unmount
+    return () => unsubscribe();
+  }, []);
 
   return { login, error, isPending, logined, userIn, users, refreshData };
 };
