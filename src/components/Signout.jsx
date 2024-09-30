@@ -14,7 +14,7 @@ const Signout = () => {
                     <Signin />
                 </>
             ) : (
-                <button className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 p-3 rounded-lg my-10 mx-auto text-cneter  flex justify-center items-center " onClick={logout}>
+                    <button className="text-white p-2 bg-[#3b82f6] rounded-lg my-10 mx-auto" onClick={logout}>
                     Sign out
                 </button>
             )}

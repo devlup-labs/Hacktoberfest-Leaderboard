@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSignIn } from "../hooks/useSignIn";
 import Leaderboard from "./Leaderboard";
 import LeaderboardNoAuth from "./LeaderboardsNoAuth";
-import Typewriter from "typewriter-effect";
+import Signout from "./Signout";
 
 const Signin = () => {
   let { login, isPending, logined, users, refreshData } = useSignIn()
@@ -23,10 +23,11 @@ const Signin = () => {
           <Leaderboard status={logined} >
             {users}
           </Leaderboard>
-          <div className="flex py-2 items-center justify-center">
+          <div className="flex flex-row gap-4 py-2 items-center justify-center">
             <button onClick={handleRefresh} className='text-white bg-[#3b82f6] p-2 rounded-lg'>
               Refresh
             </button>
+            <Signout />
           </div>
           {refreshMessage !== '' && (
             <div className="text-center text-gray-500 my-2">
@@ -36,29 +37,20 @@ const Signin = () => {
         </div>
       ) : (
         <div className="h-screen flex flex-col items-center justify-center">
-          <div className="font-bold text-[#3b82f6]  text-transparent text-4xl text-center">
-            <Typewriter
-              options={{
-                strings: ["HACKTOBER FEST"],
-                autoStart: true,
-                loop: true,
-              }}
-            />
-          </div>
-          <div className="mt-6 ">
-            <button
-              className="bg-[#3b82f6] text-sm p-2 rounded-lg"
-              onClick={login}
-            >
-              {isPending ? "Loading....." : "Link Github"}
-            </button>
-          </div>
-          {/* Table and Button */}
-          <div className="mt-2 flex items-center justify-center">
-            <div className="bg-white w-full max-w-3xl overflow-hidden">
-              <LeaderboardNoAuth />
+            <div className="mt-2 flex flex-col items-center justify-center gap-4">
+              <div className="w-full max-w-3xl overflow-hidden">
+                <LeaderboardNoAuth />
+              </div>
+              <div className="flex flex-row justify-center items-center gap-4">
+                <p className="">Want to be a part of this?</p>
+                <button
+                  className="bg-[#3b82f6] text-white text-sm p-2 flex rounded-lg justify-center items-center"
+                  onClick={login}
+                >
+                  {isPending ? "Loading....." : "Link Github"}
+                </button>
+              </div>
             </div>
-          </div>
         </div>
       )}
     </div>
