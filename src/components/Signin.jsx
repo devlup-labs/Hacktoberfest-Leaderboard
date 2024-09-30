@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSignIn } from "../hooks/useSignIn";
 import Leaderboard from "./Leaderboard";
 import LeaderboardNoAuth from "./LeaderboardsNoAuth";
@@ -6,16 +6,30 @@ import Typewriter from "typewriter-effect";
 
 const Signin = () => {
   let { login, isPending, logined, users, refreshData } = useSignIn()
-
+  const [refreshMessage, setRefreshMessage] = useState('');
+  const handleRefresh = async () => {
+    try {
+      const result = await refreshData();
+      setRefreshMessage(result);
+    } catch (err) { 
+      console.error("Error during refresh:", err);
+      setRefreshMessage("Failed to refresh data.");
+    }
+  }
   return (
     <div>
       {logined ? (
         <div className="">
           <div className="flex py-10 items-center justify-center">
-            <button onClick={refreshData} className='text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2'>
+            <button onClick={handleRefresh} className='text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2'>
               REFRESH
             </button>
           </div>
+          {refreshMessage !== '' && (
+            <div className="text-center text-gray-500 my-2">
+              {refreshMessage}
+            </div>
+          )}
           <Leaderboard status={logined} >
             {users}
           </Leaderboard>
