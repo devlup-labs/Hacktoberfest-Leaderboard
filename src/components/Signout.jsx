@@ -5,7 +5,7 @@ import Signin from './Signin'
 const Signout = () => {
     const { logout, out } = useSignout()
     return (
-        <div>
+        <div className='text-black'>
             {out === true ? (
                 <>
                     <p>
