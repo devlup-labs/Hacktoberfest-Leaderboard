@@ -2,10 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-.body{
-    background:  #040720;
-}
 body::-webkit-scrollbar {
     display: none;
   }
   
+  html {
+    background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+  }
