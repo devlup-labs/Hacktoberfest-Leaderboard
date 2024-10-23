@@ -6,7 +6,7 @@ const LeaderboardNoAuth = () => {
   const itemsPerPage = 10;  // Number of items to display per page
   const [currentPage, setCurrentPage] = useState(1);
   users.sort(
-    (a, b) => b.HacktoberFestContributions - a.HacktoberFestContributions
+    (a, b) => b.AcceptedHacktoberFestPRs - a.AcceptedHacktoberFestPRs
   );
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage <= users.length ? startIndex + itemsPerPage : users.length;
