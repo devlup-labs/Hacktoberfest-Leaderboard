@@ -6,7 +6,7 @@ import "aos/dist/aos.css";
 const Leaderboard = ({ children, status }) => {
   const names = children;
   names.sort(
-    (a, b) => b.HacktoberFestContributions - a.HacktoberFestContributions
+    (a, b) => b.AcceptedHacktoberFestPRs - a.AcceptedHacktoberFestPRs
   );
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
