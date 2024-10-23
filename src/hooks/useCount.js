@@ -6,7 +6,6 @@ const fetchDetails = async (UsrName, label) => {
     if (!res.ok) throw new Error("Error");
 
     const data = await res.json();
-    console.log(data);
 
     // Check if 'items' exists in the data object
     if (data.items) {
@@ -23,20 +22,18 @@ const fetchDetails = async (UsrName, label) => {
 
 export const getCount = async (UsrName) => {
   try {
-    const data = await fetchDetails(UsrName, "hacktoberfest");
+    const data = await fetchDetails(UsrName, "BugBounty");
     return data.length; // Return the length of the array
   } catch (error) {
-    console.error(error);
     return 0;
   }
 };
 
 export const getAcceptedCount = async (UsrName) => {
   try {
-    const data = await fetchDetails(UsrName, "hello");
+    const data = await fetchDetails(UsrName, "BugBountyVerified");
     return data.length; // Return the length of the array
   } catch (error) {
-    console.error(error);
     return 0;
   }
 };

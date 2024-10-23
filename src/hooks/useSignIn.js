@@ -60,7 +60,6 @@ export const useSignIn = () => {
       });
 
       const username = response.data.user.login;
-      console.log(response.data.user);
       const userRef = ref(db, `/usernames/${username}`);
       const snapshot = await get(userRef);
 
@@ -154,9 +153,7 @@ export const useSignIn = () => {
             })
           );
 
-          console.log("Fetched usersArray: ", usersArray);
           setUsers(usersArray); // Update the state
-          console.log(usersArray);
           return "Updated usersArray";
         }
       }
