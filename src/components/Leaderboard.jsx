@@ -49,13 +49,13 @@ const Leaderboard = ({ children, status }) => {
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
-                          BugBounty Contributions
+                          Contributions
                         </th>
                         <th
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
-                          AcceptedBugBountycontributions
+                          Accepted Contributions
                         </th>
                         <th
                           scope="col"
