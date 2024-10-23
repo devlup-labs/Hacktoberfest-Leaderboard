@@ -90,12 +90,6 @@ export const useSignIn = () => {
     }
   };
 
-  const checkTime = () => {
-    const now = new Date();
-    const minutes = now.getMinutes();
-    return minutes % 15 === 0;
-  };
-
   const refreshData = async () => {
     try {
       const usersRef = ref(db, "/usernames");
@@ -105,57 +99,19 @@ export const useSignIn = () => {
         const usersData = usersSnapshot.val();
         let usersArray = [];
 
-        if (!checkTime()) {
-          if (users.length === 0) {
-            usersArray = await Promise.all(
-              Object.keys(usersData).map(async (key) => {
-                const userData = usersData[key];
-                return {
-                  username: key, // 'key' is the username
-                  HacktoberFestContributions:
-                    userData.HacktoberFestContributions,
-                  AcceptedHacktoberFestPRs: userData.AcceptedHacktoberFestPRs,
-                  updatedAt: userData.updatedAt,
-                };
-              })
-            );
-            setUsers(usersArray); // Update the state
-            return "Fetched usersArray";
-          } else {
-            return "Update at a 15 time interval.";
-          }
-        } else {
-          // Ensure promises are handled correctly
-          usersArray = await Promise.all(
-            Object.keys(usersData).map(async (key) => {
-              const contributions = await getCount(key);
-              const acceptedPRs = await getAcceptedCount(key);
-              const updatedAt = new Intl.DateTimeFormat(
-                "en-US",
-                options
-              ).format(Date.now());
-
-              // Update the user data in Firebase
-              const userRef = ref(db, `/usernames/${key}`);
-              await set(userRef, {
-                username: key,
-                HacktoberFestContributions: contributions,
-                AcceptedHacktoberFestPRs: acceptedPRs,
-                updatedAt: updatedAt,
-              });
-
-              return {
-                username: key, // 'key' is the username
-                HacktoberFestContributions: contributions,
-                AcceptedHacktoberFestPRs: acceptedPRs,
-                updatedAt: updatedAt,
-              };
-            })
-          );
-
-          setUsers(usersArray); // Update the state
-          return "Updated usersArray";
-        }
+        usersArray = await Promise.all(
+          Object.keys(usersData).map(async (key) => {
+            const userData = usersData[key];
+            return {
+              username: key, // 'key' is the username
+              HacktoberFestContributions: userData.HacktoberFestContributions,
+              AcceptedHacktoberFestPRs: userData.AcceptedHacktoberFestPRs,
+              updatedAt: userData.updatedAt,
+            };
+          })
+        );
+        setUsers(usersArray); // Update the state
+        return "Fetched usersArray";
       }
     } catch (error) {
       console.error("Error refreshing data:", error);
