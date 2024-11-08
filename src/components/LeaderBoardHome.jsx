@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 function LeaderBoardHome() {
   return (
     <div>
-      <div className="w-[90%] mx-auto pt-36">
+      <div className="w-[90%] mx-auto py-24 overflow-y-auto">
         <div className="mx-auto flex flex-col items-center gap-4">
           <LeaderboardNoAuth />
           <Link to="/register">
