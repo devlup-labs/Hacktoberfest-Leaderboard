@@ -65,19 +65,19 @@ const Leaderboard = ({ children, status }) => {
                         </th>
                       </tr>
                     </thead>
-                    <tbody className=" divide-y divide-gray-200 bg-slate-200">
+                    <tbody className=" divide-y divide-gray-700 bg-slate-200">
                       {visibleData.map((item, index) => (
                         <tr key={index} className="hover:bg-slate-300">
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
                             {item.username}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
                             {item.HacktoberFestContributions}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
                             {item.AcceptedHacktoberFestPRs}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
                             {item.updatedAt}
                           </td>
                         </tr>
@@ -104,7 +104,7 @@ const Leaderboard = ({ children, status }) => {
                 </button>
               ))}
             </nav>
-            <div className="mt-2 text-sm text-center">
+            <div className="mt-2 text-sm text-center text-white">
               Showing {startIndex + 1} to {endIndex} of {names.length}
             </div>
           </div>

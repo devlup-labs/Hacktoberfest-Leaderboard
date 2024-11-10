@@ -9,7 +9,9 @@ import Navbar from "./components/Navbar";
 const App = () => {
   return (
     <div className="bg-gray-50 h-screen">
-      <BrowserRouter>
+      <BrowserRouter
+      basename="/bugbounty/"
+      >
       <Navbar/>
         <Routes>
           <Route path="/register" element={<Signin />} />

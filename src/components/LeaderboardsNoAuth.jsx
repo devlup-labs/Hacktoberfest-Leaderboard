@@ -20,7 +20,7 @@ const LeaderboardNoAuth = () => {
 
   return (
     <div>
-      <h1 className=" font-semibold text-center  text-[#3b82f6] text-4xl pt-10 pb-2">
+      <h1 className="pt-20 font-semibold text-center  text-[#3b82f6] text-4xl pt-10 pb-2">
         BugBounty Leaderboard
       </h1>
       <h3 className="text-xl font-semibold text-center pb-4 text-[#3b82f6]">Devlup Labs</h3>
@@ -49,19 +49,19 @@ const LeaderboardNoAuth = () => {
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="">
+                  <tbody className="divide-gray-700">
                     {users.map((user) => (
                       <tr key={user.username} className="bg-white">
-                        <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
                           {user.username}
                         </td>
-                        <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
                           {user.HacktoberFestContributions}
                         </td>
-                        <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
                           {user.AcceptedHacktoberFestPRs}
                         </td>
-                        <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
                           {user.updatedAt}
                         </td>
                       </tr>
@@ -112,7 +112,7 @@ const LeaderboardNoAuth = () => {
                 </nav>
 
                 {/* Total Pages on a new line */}
-                <div className="mt-2 text-sm text-center">
+                <div className="mt-2 text-sm text-center text-white">
                   Showing {startIndex + 1} to {endIndex} of {users.length}
                 </div>
               </div>

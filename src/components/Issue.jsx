@@ -9,9 +9,11 @@ export default function Issue() {
 
     useEffect(() => {
         const fetchIssues = async () => {
+            console.log(process.env.REACT_APP_GOOGLE_SHEETS_URLT)
             const response = await fetch(googleSheetsUrl);
             const data = await response.text();
-            const json = JSON.parse(data.substring(47).slice(0, -2)); // Extract JSON data from the response
+            console.log(data)
+            const json = JSON.parse(data.substring(47).slice(0, -2)); 
             const rows = json.table.rows;
 
             const fetchedIssues = rows.map((row, index) => {
