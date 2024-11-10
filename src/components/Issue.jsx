@@ -9,35 +9,40 @@ export default function Issue() {
 
     useEffect(() => {
         const fetchIssues = async () => {
-            console.log(process.env.REACT_APP_GOOGLE_SHEETS_URLT)
-            const response = await fetch(googleSheetsUrl);
-            const data = await response.text();
-            console.log(data)
-            const json = JSON.parse(data.substring(47).slice(0, -2)); 
-            const rows = json.table.rows;
-
-            const fetchedIssues = rows.map((row, index) => {
-                return {
-                    id: index + 1,
-                    title: row.c[7]?.v || 'No title',
-                    issueNumber: row.c[2]?.v || 0,
-                    ProjectLink: row.c[2]?.v || 'No ProjectLink',
-                    techStack: row.c[5]?.v || 'No tech stack',
-                    status: row.c[3]?.v || 'Open',
-                    githubUrl: row.c[6]?.v || '#',
-                };
-            });
-
-            setIssues(fetchedIssues);
-
-            const uniqueTechStacks = Array.from(new Set(
-                fetchedIssues.flatMap(issue => 
-                    issue.techStack.split(',').map(stack => stack.trim())
-                )
-            ));
-            setTechStacks(['All Tech Stacks', ...uniqueTechStacks]);
+            try {
+                const response = await fetch(googleSheetsUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.text();
+                const json = JSON.parse(data.substring(47).slice(0, -2));
+                const rows = json.table.rows;
+    
+                const fetchedIssues = rows.map((row, index) => {
+                    return {
+                        id: index + 1,
+                        title: row.c[7]?.v || 'No title',
+                        issueNumber: row.c[2]?.v || 0,
+                        ProjectLink: row.c[2]?.v || 'No ProjectLink',
+                        techStack: row.c[5]?.v || 'No tech stack',
+                        status: row.c[3]?.v || 'Open',
+                        githubUrl: row.c[6]?.v || '#',
+                    };
+                });
+    
+                setIssues(fetchedIssues);
+    
+                const uniqueTechStacks = Array.from(new Set(
+                    fetchedIssues.flatMap(issue => 
+                        issue.techStack.split(',').map(stack => stack.trim())
+                    )
+                ));
+                setTechStacks(['All Tech Stacks', ...uniqueTechStacks]);
+            } catch (error) {
+                console.error("Failed to fetch issues:", error);
+            }
         };
-
+    
         fetchIssues();
     }, []);
 
