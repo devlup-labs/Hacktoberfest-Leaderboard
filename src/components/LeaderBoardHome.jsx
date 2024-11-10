@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom'
 
 function LeaderBoardHome() {
   return (
-    <div>
-      <div className="w-[90%] mx-auto py-24 overflow-y-auto">
+    <div className='min-h-screen bg-gray-900'>
+      <div className="w-[90%] mx-auto pt-36 0">
+
+  
         <div className="mx-auto flex flex-col items-center gap-4">
           <LeaderboardNoAuth />
           <Link to="/register">
-            <button className='bg-[#3b82f6] rounded-lg p-3'>
+            <button className='bg-[#3b82f6] rounded-lg p-3 mb-4'>
               Want to register?
             </button>
           </Link>

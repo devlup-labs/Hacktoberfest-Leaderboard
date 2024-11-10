@@ -19,7 +19,7 @@ const Signin = () => {
   return (
     <div>
       {logined ? (
-        <div className="">
+        <div className="min-h-screen bg-gray-900">
           <Leaderboard status={logined} >
             {users}
           </Leaderboard>
@@ -36,13 +36,13 @@ const Signin = () => {
           )}
         </div>
       ) : (
-        <div className="h-screen flex flex-col items-center justify-center">
+        <div className="min-h-screen flex flex-col items-center bg-gray-900 justify-center">
             <div className="mt-2 flex flex-col items-center justify-center gap-4">
               <div className="w-full max-w-3xl overflow-hidden">
                 <LeaderboardNoAuth />
               </div>
-              <div className="flex flex-row justify-center items-center gap-4">
-                <p className="">Want to be a part of this?</p>
+              <div className="flex flex-row justify-center items-center mb-4 gap-4">
+                <p className="text-white">Want to be a part of this?</p>
                 <button
                   className="bg-[#3b82f6] text-white text-sm p-2 flex rounded-lg justify-center items-center"
                   onClick={login}
