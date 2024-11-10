@@ -6,6 +6,8 @@ function LeaderBoardHome() {
   return (
     <div className='min-h-screen bg-gray-900'>
       <div className="w-[90%] mx-auto pt-36 0">
+
+  
         <div className="mx-auto flex flex-col items-center gap-4">
           <LeaderboardNoAuth />
           <Link to="/register">
