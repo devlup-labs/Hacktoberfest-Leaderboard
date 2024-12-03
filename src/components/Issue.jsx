@@ -9,45 +9,41 @@ export default function Issue() {
 
     useEffect(() => {
         const fetchIssues = async () => {
-            try {
-                const response = await fetch(googleSheetsUrl);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.text();
-                const json = JSON.parse(data.substring(47).slice(0, -2));
-                const rows = json.table.rows;
-    
-                const fetchedIssues = rows.map((row, index) => {
-                    return {
-                        id: index + 1,
-                        title: row.c[7]?.v || 'No title',
-                        issueNumber: row.c[2]?.v || 0,
-                        ProjectLink: row.c[2]?.v || 'No ProjectLink',
-                        techStack: row.c[5]?.v || 'No tech stack',
-                        status: row.c[3]?.v || 'Open',
-                        githubUrl: row.c[6]?.v || '#',
-                    };
-                });
-    
-                setIssues(fetchedIssues);
-    
-                const uniqueTechStacks = Array.from(new Set(
-                    fetchedIssues.flatMap(issue => 
+            const response = await fetch(googleSheetsUrl);
+            const data = await response.json();
+            const rows = data.values.slice(4); // Skip first 4 rows
+
+            const fetchedIssues = rows.map((row, index) => {
+                return {
+                    id: index + 1,
+                    title: row[7] || 'No title',
+                    issueNumber: row[2] || 0,
+                    ProjectLink: row[2] || 'No ProjectLink',
+                    techStack: row[5] || 'No tech stack',
+                    status: row[3] || 'Open',
+                    githubUrl: row[6] || '#',
+                };
+            });
+
+            setIssues(fetchedIssues);
+
+            const uniqueTechStacks = Array.from(
+                new Set(
+                    fetchedIssues.flatMap(issue =>
                         issue.techStack.split(',').map(stack => stack.trim())
                     )
-                ));
-                setTechStacks(['All Tech Stacks', ...uniqueTechStacks]);
-            } catch (error) {
-                console.error("Failed to fetch issues:", error);
-            }
+                )
+            );
+            setTechStacks(['All Tech Stacks', ...uniqueTechStacks]);
         };
-    
+
         fetchIssues();
     }, []);
 
     const filteredIssues = issues.filter(issue => {
-        const matchesTechStack = techStackFilter === 'All Tech Stacks' || issue.techStack.split(',').map(stack => stack.trim()).includes(techStackFilter);
+        const matchesTechStack =
+            techStackFilter === 'All Tech Stacks' ||
+            issue.techStack.split(',').map(stack => stack.trim()).includes(techStackFilter);
         return matchesTechStack;
     });
     return (
@@ -95,7 +91,7 @@ export default function Issue() {
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                                        <a href={issue.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center text-blue-400">
+                                        <a href={issue.ProjectLink} target="_blank" rel="noopener noreferrer" className="flex items-center text-blue-400">
                                             <ExternalLink className="w-4 h-4 mr-1" />
                                             {issue.ProjectLink}
                                         </a>
