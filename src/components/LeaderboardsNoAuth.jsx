@@ -3,14 +3,13 @@ import { useUserList } from "../hooks/useUserList";
 
 const LeaderboardNoAuth = () => {
   const { users, isLoading } = useUserList();
-  const itemsPerPage = 10;  // Number of items to display per page
+  const itemsPerPage = 10;  
   const [currentPage, setCurrentPage] = useState(1);
   users.sort(
     (a, b) => b.AcceptedHacktoberFestPRs - a.AcceptedHacktoberFestPRs
   );
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage <= users.length ? startIndex + itemsPerPage : users.length;
-  const visibleUsers = users.slice(startIndex, endIndex);
 
   const totalPages = Math.ceil(users.length / itemsPerPage);
 
@@ -25,76 +24,62 @@ const LeaderboardNoAuth = () => {
       </h1>
       <h3 className="text-xl font-semibold text-center pb-4 text-[#3b82f6]">Devlup Labs</h3>
       <div className="">
-        <div className="overflow-auto rounded-lg">
+        <div className="">
           {isLoading ? (
             <p className="p-4 text-center text-white">Loading...</p>
           ) : (
             <>
-              {/* Desktop View */}
-              <div className="max-[587px]:hidden">
-                <table className="w-full">
-                  <thead className="bg-gray-100">
-                    <tr>
-                      <th scope="col" className="p-3 text-sm font-semibold tracking-wide text-left uppercase">
-                        Username
-                      </th>
-                      <th scope="col" className="p-3 text-sm font-semibold tracking-wide text-left uppercase">
-                        Contributions
-                      </th>
-                      <th scope="col" className="p-3 text-sm font-semibold tracking-wide text-left uppercase">
-                        Accepeted Contributions
-                      </th>
-                      <th scope="col" className="p-3 text-sm font-semibold tracking-wide text-left uppercase">
-                        Updated At
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-gray-700">
-                    {users.map((user) => (
-                      <tr key={user.username} className="bg-white">
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
-                          {user.username}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
-                          {user.HacktoberFestContributions}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
-                          {user.AcceptedHacktoberFestPRs}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
-                          {user.updatedAt}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
 
 
-              {/* Mobile View */}
-              <div className="min-[587px]:hidden grid grid-cols-1 gap-4">
-                {visibleUsers.map((user) => (
-                  <div
-                    className="bg-white p-4 rounded-lg shadow"
-                    key={user.username}
-                  >
-                    <div className="flex items-center space-x-2 text-sm">
-                      <div className="bg-green-200 rounded-lg p-1">{user.username}</div>
-                      <div className="bg-red-200 rounded-lg p-1">
-                        {user.HacktoberFestContributions}
-                      </div>
-                      <div className="bg-orange-200 rounded-lg p-1">
-                        {user.AcceptedHacktoberFestPRs}
-                      </div>
-                      <div className="bg-purple-200 rounded-lg p-1">
-                        {user.updatedAt}
-                      </div>
-                    </div>
+       <div className="w-full px-4 sm:px-6 lg:px-8 py-8">
+      <div className="bg-gray-800 rounded-lg overflow-x-auto">
+        <table className="w-full divide-y divide-gray-700">
+          <thead className="bg-gray-700">
+            <tr>
+              <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider hidden sm:table-cell">Username</th>
+              <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Contributions</th>
+              <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider hidden md:table-cell">Accepted Contributions</th>
+              <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider hidden md:table-cell">Updated At</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-700">
+            {users.map((user) => (
+              <tr key={user.username} className="hover:bg-gray-700">
+                <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-300 hidden sm:table-cell">{user.username}</td>
+                <td className="px-4 sm:px-6 py-4 text-sm font-medium text-blue-400">
+                  <div className="flex flex-col">
+                    <span className="sm:hidden text-xs text-gray-400 mb-1">Username: {user.username}</span>
+                    <div className="font-medium">{user.HacktoberFestContributions}</div>
                   </div>
-                ))}
-              </div>
-
-              {/* Pagination */}
+                </td>
+                <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-300 hidden md:table-cell">
+                  <a 
+                    href={user.ProjectLink} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="flex items-center text-blue-400"
+                  >
+                    {user.AcceptedHacktoberFestPRs}
+                  </a>
+                </td>
+                <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm hidden md:flex items-center">
+                  <span className="text-white">{user.updatedAt}</span>
+                </td>
+                
+                {/* Mobile View Additional Information */}
+                <td className="px-4 sm:px-6 py-4 md:hidden">
+                  <div className="flex flex-col text-xs text-gray-400 space-y-1">
+                    <span>Accepted PRs: {user.AcceptedHacktoberFestPRs}</span>
+                    <span>Updated: {user.updatedAt}</span>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+              
               <div className="mt-4 flex flex-col items-center">
                 <nav className="pagination flex justify-center">
                   {Array.from({ length: totalPages }).map((_, index) => (
@@ -111,7 +96,6 @@ const LeaderboardNoAuth = () => {
                   ))}
                 </nav>
 
-                {/* Total Pages on a new line */}
                 <div className="mt-2 text-sm text-center text-white">
                   Showing {startIndex + 1} to {endIndex} of {users.length}
                 </div>
