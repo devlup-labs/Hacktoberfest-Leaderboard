@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 export default function Navbar() {
   return (
-    <nav className="bg-gray-800 p-1 shadow-md  fixed w-[100%] ">\
+    <nav className="bg-gray-800 p-1 shadow-md  fixed w-[100%] ">
     <div className='max-w-7xl mx-auto flex items-start space-x-3 justify-between'>
     <div className="flex">
         {/* Logo and Titles */}

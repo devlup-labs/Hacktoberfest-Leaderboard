@@ -32,61 +32,42 @@ const Leaderboard = ({ children, status }) => {
             BugBounty Leaderboard
           </h1>
           <h3 className="text-xl font-semibold text-center pb-4 text-[#3b82f6]">Devlup Labs</h3>
-          <div className="flex flex-col justify-between w-[60%] mx-auto">
-            <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-              <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                  <table className="min-w-full divide-y divide-gray-200">
-                    <thead className="bg-gray-50">
-                      <tr>
-                        <th
-                          scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          Name
-                        </th>
-                        <th
-                          scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          Contributions
-                        </th>
-                        <th
-                          scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          Accepted Contributions
-                        </th>
-                        <th
-                          scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          UpdatedAt
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className=" divide-y divide-gray-700 bg-slate-200">
-                      {visibleData.map((item, index) => (
-                        <tr key={index} className="hover:bg-slate-300">
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
-                            {item.username}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
-                            {item.HacktoberFestContributions}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
-                            {item.AcceptedHacktoberFestPRs}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
-                            {item.updatedAt}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
+         
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="bg-gray-800 rounded-lg overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-700">
+                      <thead className="bg-gray-700">
+                          <tr>
+                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Username</th>
+                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Contributions</th>
+                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"> Accepeted Contributions</th>
+                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"> Updated At</th>
+                          </tr>
+                      </thead>
+                    <tbody className="divide-y divide-gray-700">
+                          {visibleData.map((issue) => (
+                              <tr key={issue.username} className="hover:bg-gray-700">
+                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{issue.username}</td>
+                                  <td className="px-6 py-4 text-sm font-medium text-blue-400">
+                                      <div>
+                                          <div className="font-medium">{issue.HacktoberFestContributions}</div>
+                                      </div>
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                                      <a href={issue.ProjectLink} target="_blank" rel="noopener noreferrer" className="flex items-center text-blue-400">
+                                          {issue.AcceptedHacktoberFestPRs}
+                                      </a>
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap text-sm flex items-center">
+                                      <span className="text-white">{issue.updatedAt}</span>
+                                  </td>
+                                
+                              </tr>
+                          ))}
+                      </tbody>
                   </table>
                 </div>
-              </div>
-            </div>
+          
           </div>
 
           <div className="mt-4 flex flex-col justify-center">
